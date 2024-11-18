@@ -23,7 +23,7 @@ function Experience({}: Props) {
         className='absolute top-24 uppercase tracking-[20px] text-gray-500 text-2xl'
         >Experience</h3>
         
-        <div className='relative z-10 w-full flex space-x-8 overflow-x-auto p-10 snap-x snap-mandatory mt-20'>
+        <div className='relative z-10 w-full flex space-x-8 overflow-x-auto p-10 snap-x snap-mandatory mt-20  scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80'>
 
             {/* Experience */}
             <ExperienceCard/>
