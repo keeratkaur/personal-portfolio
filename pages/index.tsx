@@ -7,6 +7,7 @@ import Experience from "./components/Experience";
 import Skills from "./components/Skills";
 import Projects from "./components/Projects";
 import ContactMe from "./components/ContactMe";
+import Link from "next/link";
 
 const Home: NextPage = () => {
   return (
@@ -54,6 +55,10 @@ const Home: NextPage = () => {
       </section>
 
       {/* <Footer /> */}
+      {/*<Link href="#hero">
+      <footer className="sticky bottom-5 w-full cursor-pointer">
+        <div className="flex items-center justify-center"><img
+        className="h-10 w-10 rounded-full filter grayscale hover:grayscale-0" src="https://t3.ftcdn.net/jpg/05/75/88/74/360_F_575887429_chcmd3cZOrsgWdH61oTQPyPoE51ZnpIB.jpg" alt="" /></div></footer></Link>*/}
     </div>
   );
 };
