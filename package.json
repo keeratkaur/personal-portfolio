@@ -11,18 +11,19 @@
   "dependencies": {
     "@heroicons/react": "^2.1.5",
     "@heroicons/vue": "^2.1.5",
+    "@sanity/cli": "^2.36.2",
     "@sanity/icons": "^3.4.0",
     "@sanity/image-url": "^1.1.0",
-    "@sanity/vision": "^3.64.1",
+    "@sanity/vision": "^3.64.3",
     "framer-motion": "^11.11.11",
     "next": "15.0.2",
-    "next-sanity": "^9.8.15",
+    "next-sanity": "^9.8.16",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-hook-form": "^7.53.2",
     "react-simple-typewriter": "^5.0.1",
     "react-social-icons": "^6.18.0",
-    "sanity": "^3.64.1",
+    "sanity": "^3.62.0",
     "styled-components": "^6.1.13"
   },
   "devDependencies": {
