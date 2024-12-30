@@ -31,8 +31,7 @@ export const pageInfo = defineType({
     {
       name:"backgroundInformation",
       title:"Background Information",
-      type:"array",
-      of:[{type:"block"}],
+      type:"string",
     },
     {
       name:"profilePic",
