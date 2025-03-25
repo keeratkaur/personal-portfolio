@@ -6,7 +6,13 @@ import { skill } from './skill';
 import { experience } from './experience';
 import { project } from './project';
 
-// Export the schema configuration
-export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [pageInfo, social, skill, experience, project],
+// Export the schema configuration with explicit typing for the types array
+export const schema = {
+  types: [
+    pageInfo, 
+    social, 
+    skill, 
+    experience, 
+    project
+  ] as SchemaTypeDefinition[], // Explicitly typing the types array
 };

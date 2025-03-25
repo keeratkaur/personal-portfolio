@@ -35,7 +35,13 @@ export const project = defineType({
     {
       name:"technologies",
       title:"Technologies",
-      type:"  date",
+      type:"array",
+      of: [
+        {
+          type:"reference",
+          to:[{type:"skill"}]
+        }
+      ]
       
     },
      
