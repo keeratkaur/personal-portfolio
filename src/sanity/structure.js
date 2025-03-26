@@ -1,13 +1,26 @@
 // https://www.sanity.io/docs/structure-builder-cheat-sheet
+import { schema } from './schemaTypes'
+
+const documentTypes = schema.types.map(type => type.name)
+
 export const structure = (S) =>
   S.list()
-    .title('Blog')
+    .title('Portfolio Content')
     .items([
-      S.documentTypeListItem('post').title('Posts'),
-      S.documentTypeListItem('category').title('Categories'),
-      S.documentTypeListItem('author').title('Authors'),
+      S.listItem()
+        .title('Page Info')
+        .child(S.document().schemaType('pageInfo').documentId('pageInfo')),
       S.divider(),
-      ...S.documentTypeListItems().filter(
-        (item) => item.getId() && !['post', 'category', 'author'].includes(item.getId()),
-      ),
+      S.listItem()
+        .title('Skills')
+        .child(S.documentTypeList('skill')),
+      S.listItem()
+        .title('Experience')
+        .child(S.documentTypeList('experience')),
+      S.listItem()
+        .title('Projects')
+        .child(S.documentTypeList('project')),
+      S.listItem()
+        .title('Socials')
+        .child(S.documentTypeList('social')),
     ])
