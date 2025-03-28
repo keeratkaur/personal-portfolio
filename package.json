@@ -9,27 +9,22 @@
     "lint": "next lint"
   },
   "dependencies": {
-  "@sanity/base": "^2.40.0",
-  "@sanity/cli": "^2.39.0",
-  "@sanity/core": "^2.40.0",
-  "@sanity/desk-tool": "^2.40.0",
-  "@sanity/icons": "^3.6.0",
-  "@sanity/image-url": "^1.1.0",
-  "@sanity/vision": "^3.70.0",
-  "framer-motion": "^11.11.11",
-  "next": "15.0.2",
-  "next-sanity": "^9.8.31",
-  "react": "^18.0.0",
-  "react-dom": "^18.0.0",
-  "react-hook-form": "^7.53.2",
-  "react-simple-typewriter": "^5.0.1",
-  "react-social-icons": "^6.18.0",
-  "sanity": "^3.70.0",
-  "styled-components": "^6.1.14"
-},
+    "@heroicons/react": "^2.2.0",
+    "@sanity/vision": "^3.30.0",
+    "framer-motion": "^11.11.11",
+    "next": "15.0.2",
+    "next-sanity": "^7.0.17",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-hook-form": "^7.53.2",
+    "react-simple-typewriter": "^5.0.1",
+    "react-social-icons": "^6.18.0",
+    "sanity": "^3.30.0",
+    "styled-components": "^6.1.14"
+  },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
+    "@types/node": "^20.17.28",
+    "@types/react": "^18.3.20",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.20",
     "eslint": "^8",
@@ -37,6 +32,6 @@
     "postcss": "^8.4.47",
     "tailwind-scrollbar": "^3.1.0",
     "tailwindcss": "^3.4.14",
-    "typescript": "^5"
+    "typescript": "^5.8.2"
   }
 }
