@@ -1,11 +1,13 @@
 import { motion } from 'framer-motion'
 import React from 'react'
 import ExperienceCard from './ExperienceCard'
+import { Experience as ExperienceType } from '@/typings'
 
-type Props = {}
+type Props = {
+    experiences: ExperienceType[];
+}
 
-
-function Experience({}: Props) {
+function Experience({ experiences }: Props) {
   return (
     <motion.div
     initial={{

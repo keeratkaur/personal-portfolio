@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { SocialIcon } from 'react-social-icons';
 import Link from 'next/link';
+import { Social } from '@/typings';
 
-type Props = {};
+type Props = {
+  socials: Social[];
+};
 
-function Header({}: Props) {
+function Header({ socials }: Props) {
   // State to track client-side mount
   const [mounted, setMounted] = useState(false);
 
@@ -68,21 +71,14 @@ function Header({}: Props) {
         className='flex flex-row items-center'
       >
         {/* Social Icons */}
-        <SocialIcon
-          url="https://www.linkedin.com/in/harkirat-kaur-/"
-          fgColor='gray'
-          bgColor='transparent'
-        />
-        <SocialIcon
-          url="https://github.com/keeratkaur"
-          fgColor='gray'
-          bgColor='transparent'
-        />
-        <SocialIcon
-          url="https://www.instagram.com/kaurkeeerat/"
-          fgColor='gray'
-          bgColor='transparent'
-        />
+        {socials?.map((social) => (
+          <SocialIcon
+            key={social._id}
+            url={social.url}
+            fgColor='gray'
+            bgColor='transparent'
+          />
+        ))}
       </motion.div>
     </header>
   );

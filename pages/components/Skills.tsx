@@ -1,10 +1,13 @@
 import { motion } from 'framer-motion'
 import React from 'react'
-import Skill from './Skill'
+import SkillComponent from './Skill'
+import { Skill as SkillType } from '@/typings'
 
-type Props = {}
+type Props = {
+    skills: SkillType[];
+}
 
-function Skills({}: Props) {
+function Skills({ skills }: Props) {
   return (
     <motion.div
     initial={{
@@ -23,12 +26,12 @@ function Skills({}: Props) {
         <h3 className='absolute top-36 uppercase tracking-[3px] text-gray-500'>Hover over a skill for current proficiency</h3>
 
         <div className='grid grid-cols-4 gap-5'>
-          <Skill />
-          <Skill />
-          <Skill />
-          <Skill />
-          <Skill />
-          <Skill />
+          <SkillComponent />
+          <SkillComponent />
+          <SkillComponent />
+          <SkillComponent />
+          <SkillComponent />
+          <SkillComponent />
           
         </div>
         </motion.div>
