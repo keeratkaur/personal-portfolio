@@ -15,6 +15,7 @@ import { fetchSkills } from "@/utils/fetchSkills";
 import { fetchProjects } from "@/utils/fetchProjects";
 import { fetchSocials } from "@/utils/fetchSocials";
 import ThemeToggle from "./components/ThemeToggle";
+import BackToTop from "./components/BackToTop";
 
 type Props = {
   pageInfo: PageInfo;
@@ -26,7 +27,7 @@ type Props = {
 
 const Home = ({pageInfo, experiences, skills, projects, socials}: Props) => {
   return (
-    <div className="bg-theme text-theme h-screen snap-y snap-mandatory overflow-y-scroll overflow-x-hidden z-0 scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80">
+    <div className="bg-theme text-theme relative h-screen snap-y snap-mandatory overflow-y-scroll overflow-x-hidden z-0 scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80">
       <Head>
         <title>Personal Portfolio</title>
       </Head>
@@ -57,6 +58,8 @@ const Home = ({pageInfo, experiences, skills, projects, socials}: Props) => {
       <section id="contact" className="snap-start">
         <ContactMe />
       </section>
+
+      <BackToTop />
     </div>
   );
 };
