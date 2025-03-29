@@ -1,9 +1,12 @@
-import { Skill } from "../typings";
+import { Skill } from "@/typings";
+import { sanityClient } from "@/lib/sanity";
+import { groq } from "next-sanity";
 
 export const fetchSkills = async () => {
-    //backend call
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getSkills`);
-    const data = await res.json();
-    const skills: Skill[] = data.skills;
+    const query = groq`
+        *[_type == "skill"]
+    `;
+    
+    const skills: Skill[] = await sanityClient.fetch(query);
     return skills;
 }
