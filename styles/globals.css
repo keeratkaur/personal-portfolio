@@ -1,19 +1,49 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 255 255 255;
+    --foreground: 26 26 26;
+    --primary: #F7AB0A;
+    --secondary: #242424;
+    --text: #1a1a1a;
+  }
+
+  .dark {
+    --background: 26 26 26;
+    --foreground: 255 255 255;
+    --primary: #F7AB0A;
+    --secondary: #242424;
+    --text: #ffffff;
+  }
+
+  body {
+    @apply bg-theme text-theme transition-colors duration-200;
+  }
+}
+
+@layer utilities {
+  .bg-theme {
+    @apply bg-[rgb(var(--background))] transition-colors duration-200;
+  }
+  
+  .text-theme {
+    @apply text-[rgb(var(--foreground))] transition-colors duration-200;
+  }
+
+  .border-theme {
+    @apply border-[rgb(var(--foreground)_/_0.1)] transition-colors duration-200;
+  }
+}
+
 @layer components {
-    
     .heroButton {
-        @apply px-6 py-2 border border-[#242424] rounded-full uppercase text-xs tracking-widest text-gray-500 transition-all;
-    }
-    .heroButton:hover {
-        border-color: rgba(247, 171, 10, 0.4); /* #F7AB0A with 40% opacity */
-        color: rgba(247, 171, 10, 0.4); /* Text color with 40% opacity */
+        @apply px-6 py-2 border border-theme rounded-full uppercase text-xs tracking-widest text-gray-500 transition-all hover:border-[#F7AB0A]/40 hover:text-[#F7AB0A]/40;
     }
 
     .contactInput {
-        @apply outline-none bg-gray-400/10 rounded-sm border-b px-6 py-4 border-[#242424] text-gray-500 placeholder-gray-500 transition-all focus:border-[#F7AB0A]/40 focus:text-[#F7AB0A]/40
-        hover:border-[#f7ab0a/40];
+        @apply outline-none bg-[rgb(var(--foreground)_/_0.1)] rounded-sm border-b px-6 py-4 border-theme text-[rgb(var(--foreground)_/_0.6)] placeholder-[rgb(var(--foreground)_/_0.6)] transition-all focus:border-[#F7AB0A]/40 focus:text-[#F7AB0A]/40 hover:border-[#F7AB0A]/40;
     }
-    
 }

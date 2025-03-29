@@ -22,52 +22,43 @@ function Hero({ pageInfo }: Props) {
         delaySpeed: 900
     })
   return (
-    <div className='h-screen flex flex-col space-y-8 items-center justify-center text-center overflow-hidden '>
+    <div className='h-screen flex flex-col space-y-8 items-center justify-center text-center overflow-hidden'>
         <BackgroundCircles/>
         <Image
             className='relative rounded-full h-32 w-32 mx-auto object-cover'
-            src={urlFor(pageInfo.heroImage).url()} // Path to the image
+            src={urlFor(pageInfo.heroImage).url()}
             alt="Keerat Kaur"
             width={200}
             height={200}
-            
         />
         <div className='z-20'>
-            <h2 className='text-sm uppercase text-gray-500 pb-2 tracking-[15px]'>
+            <h2 className='text-sm uppercase text-gray-500 dark:text-gray-400 pb-2 tracking-[15px]'>
                 {pageInfo.role}
-                </h2>
+            </h2>
         </div>
 
-        <h1 className='text-3xl lg:text-3xl font-semibold px-10'>
-        <span className='mr-3'>{text}</span> {/*React simple typewriter*/}
-        <Cursor cursorColor='#F7AB0A' cursorBlinking={true} cursorStyle='!'/>
+        <h1 className='text-3xl lg:text-3xl font-semibold px-10 text-theme'>
+            <span className='mr-3'>{text}</span>
+            <Cursor cursorColor='#F7AB0A' cursorBlinking={true} cursorStyle='!'/>
         </h1>
     
         <div className='pt-5 z-20'>
             <Link href='#about'>
-            <button className='heroButton'>About</button>
+                <button className='heroButton'>About</button>
             </Link>
             
             <Link href={'#experience'}>
-            <button className='heroButton'>Experience</button>
+                <button className='heroButton'>Experience</button>
             </Link>
 
-            <Link href={'#education'}>
-            <button className='heroButton'>Education</button>
-            </Link>
-            
             <Link href={'#skills'}>
-            <button className='heroButton'>Skills</button>
+                <button className='heroButton'>Skills</button>
             </Link>
             
             <Link href={'#projects'}>
-            <button className='heroButton'>Projects</button>
+                <button className='heroButton'>Projects</button>
             </Link>
-
-            
-                
         </div>
-        
     </div>
   )
 }

@@ -38,16 +38,16 @@ function Header({ socials }: Props) {
           transition={{
             duration: 1.5,
           }}
-          className='flex flex-row items-center text-gray-300 cursor-pointer'
+          className='flex flex-row items-center text-theme cursor-pointer'
         >
           <SocialIcon
             className='cursor-pointer'
             network="email"
-            fgColor='gray'
+            fgColor='currentColor'
             bgColor='transparent'
           />
 
-          <p className='uppercase hidden md:inline-flex text-sm text-gray-400'>
+          <p className='uppercase hidden md:inline-flex text-sm text-theme'>
             Let's Have a Coffee!
           </p>
         </motion.div>
@@ -75,8 +75,9 @@ function Header({ socials }: Props) {
           <SocialIcon
             key={social._id}
             url={social.url}
-            fgColor='gray'
+            fgColor='currentColor'
             bgColor='transparent'
+            className='text-theme'
           />
         ))}
       </motion.div>

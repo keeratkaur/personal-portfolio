@@ -32,15 +32,13 @@ function About({ pageInfo }: Props) {
       />
 
       <div className='space-y-6 px-5 md:px-10'>
-        <h4 className='text-3xl font-semibold mt-10'>
+        <h4 className='text-3xl font-semibold mt-10 text-theme'>
           Glimpse of my <span className='underline decoration-[#F7AB0A]/50'>Journey</span>
         </h4>
-        <p>
+        <p className='text-theme'>
           {pageInfo.backgroundInformation}
         </p>
-        
       </div>
-
     </motion.div>
   )
 }
