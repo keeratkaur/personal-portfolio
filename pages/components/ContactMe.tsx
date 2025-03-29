@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { PhoneIcon, MapPinIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
 import { useForm, SubmitHandler } from "react-hook-form";
 
@@ -12,6 +12,7 @@ type Inputs = {
 type Props = {}
 
 function ContactMe({}: Props) {
+    const formRef = useRef<HTMLFormElement>(null);
     const {
         register,
         handleSubmit,
@@ -20,6 +21,13 @@ function ContactMe({}: Props) {
     const onSubmit: SubmitHandler<Inputs> = (formData) => {
         window.location.href='mailto:kkirat911@gmailcom?subject=' + formData.subject + '&body=Hi, my name is ' + formData.name + '. ' + formData.message + ' (' + formData.email + ')';
     }
+
+    const handleKeyPress = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            formRef.current?.requestSubmit();
+        }
+    };
 
     return (
         <div className="h-screen flex flex-col text-left md:flex-row max-w-full px-10 justify-center items-center mx-auto relative">
@@ -35,36 +43,45 @@ function ContactMe({}: Props) {
 
                 <div className="space-y-8 md:space-y-10">
                     <div className="flex items-center space-x-5 justify-center">
-                        <PhoneIcon className="text-[#F7AB0A] h-7 w-7 animate-pulse" />
+                        <PhoneIcon className="text-[#F7AB0A] h-7 w-7 animate-pulse" aria-hidden="true" />
                         <p className="text-lg md:text-xl text-theme">+1 (709) 853-6302</p>
                     </div>
 
                     <div className="flex items-center space-x-5 justify-center">
-                        <EnvelopeIcon className="text-[#F7AB0A] h-7 w-7 animate-pulse" />
+                        <EnvelopeIcon className="text-[#F7AB0A] h-7 w-7 animate-pulse" aria-hidden="true" />
                         <p className="text-lg md:text-xl text-theme">kkirat911@gmail.com</p>
                     </div>
 
                     <div className="flex items-center space-x-5 justify-center">
-                        <MapPinIcon className="text-[#F7AB0A] h-7 w-7 animate-pulse" />
+                        <MapPinIcon className="text-[#F7AB0A] h-7 w-7 animate-pulse" aria-hidden="true" />
                         <p className="text-lg md:text-xl text-theme">Newfoundland, Canada</p>
                     </div>
                 </div>
 
-                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4">
+                <form 
+                    ref={formRef}
+                    onSubmit={handleSubmit(onSubmit)} 
+                    className="flex flex-col space-y-4"
+                    onKeyPress={handleKeyPress}
+                >
                     <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
                         <input
                             {...register('name')}
                             placeholder="Name"
                             type="text"
-                            className="contactInput flex-1"
+                            className="contactInput flex-1 focus:ring-2 focus:ring-[#F7AB0A] focus:outline-none"
+                            aria-label="Your name"
+                            tabIndex={0}
                         />
                         <input
                             {...register('email')}
                             placeholder="Email"
                             type="email"
-                            className="contactInput flex-1"
+                            className="contactInput flex-1 focus:ring-2 focus:ring-[#F7AB0A] focus:outline-none"
                             required
                             pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
+                            aria-label="Your email address"
+                            tabIndex={0}
                         />
                     </div>
 
@@ -72,18 +89,24 @@ function ContactMe({}: Props) {
                         {...register('subject')}
                         placeholder="Subject"
                         type="text"
-                        className="contactInput"
+                        className="contactInput focus:ring-2 focus:ring-[#F7AB0A] focus:outline-none"
+                        aria-label="Email subject"
+                        tabIndex={0}
                     />
 
                     <textarea
                         {...register('message')}
                         placeholder="Message"
-                        className="contactInput resize-none"
+                        className="contactInput resize-none focus:ring-2 focus:ring-[#F7AB0A] focus:outline-none"
+                        aria-label="Your message"
+                        tabIndex={0}
                     ></textarea>
 
                     <button
                         type="submit"
-                        className="bg-[#F7AB0A] py-4 px-8 rounded-md text-black font-bold text-lg hover:bg-[#f7a70a]/90 transition-all"
+                        className="bg-[#F7AB0A] py-4 px-8 rounded-md text-black font-bold text-lg hover:bg-[#f7a70a]/90 transition-all focus:ring-2 focus:ring-[#F7AB0A] focus:outline-none"
+                        aria-label="Submit contact form"
+                        tabIndex={0}
                     >
                         Submit
                     </button>

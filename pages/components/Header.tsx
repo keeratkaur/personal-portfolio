@@ -23,7 +23,11 @@ function Header({ socials }: Props) {
   return (
     <header className='sticky top-0 p-5 flex items-start justify-between max-w-7xl mx-auto z-20 xl:items-center'>
       {/* First motion div */}
-      <Link href="#contact">
+      <Link 
+        href="#contact" 
+        aria-label="Contact via email"
+        className="focus:outline-none focus:ring-2 focus:ring-[#F7AB0A] focus:rounded-lg"
+      >
         <motion.div
           initial={{
             x: -500,
@@ -45,6 +49,7 @@ function Header({ socials }: Props) {
             network="email"
             fgColor='currentColor'
             bgColor='transparent'
+            aria-label="Email contact"
           />
 
           <p className='uppercase hidden md:inline-flex text-sm text-theme'>
@@ -69,16 +74,26 @@ function Header({ socials }: Props) {
           duration: 1.5,
         }}
         className='flex flex-row items-center'
+        role="list"
+        aria-label="Social media links"
       >
         {/* Social Icons */}
         {socials?.map((social) => (
-          <SocialIcon
+          <Link
             key={social._id}
-            url={social.url}
-            fgColor='currentColor'
-            bgColor='transparent'
-            className='text-theme'
-          />
+            href={social.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="focus:outline-none focus:ring-2 focus:ring-[#F7AB0A] focus:rounded-lg"
+            aria-label={`${social.title} profile`}
+          >
+            <SocialIcon
+              fgColor='currentColor'
+              bgColor='transparent'
+              className='text-theme'
+              network={social.title.toLowerCase()}
+            />
+          </Link>
         ))}
       </motion.div>
     </header>

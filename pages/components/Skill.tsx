@@ -11,8 +11,11 @@ type Props = {
 }
 
 function Skill({ directionLeft, skill }: Props) {
+  console.log('Rendering skill:', skill.title, 'with progress:', skill.progress);
+  
   if (!skill || !skill.image) {
-    return null; // Or return a placeholder/loading state
+    console.log('Missing skill data:', skill);
+    return null;
   }
 
   return (
@@ -35,7 +38,9 @@ function Skill({ directionLeft, skill }: Props) {
       />
       <div className='absolute opacity-0 group-hover:opacity-80 transition duration-300 ease-in-out group-hover:bg-white dark:group-hover:bg-[#292929] w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 xl:w-28 xl:h-28 rounded-full z-0'>
         <div className='flex items-center justify-center h-full'>
-          <p className='text-base sm:text-lg md:text-xl xl:text-2xl font-bold text-theme opacity-100'>{skill.progress}%</p>
+          <p className='text-base sm:text-lg md:text-xl xl:text-2xl font-bold text-black dark:text-white'>
+            {typeof skill.progress === 'number' ? `${skill.progress}%` : 'N/A'}
+          </p>
         </div>
       </div>
     </div>

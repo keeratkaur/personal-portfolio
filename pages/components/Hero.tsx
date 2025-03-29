@@ -44,19 +44,43 @@ function Hero({ pageInfo }: Props) {
     
         <div className='pt-5 z-20'>
             <Link href='#about'>
-                <button className='heroButton'>About</button>
+                <button 
+                    className='heroButton focus:outline-none focus:ring-2 focus:ring-[#F7AB0A] focus:rounded-lg' 
+                    aria-label="Navigate to About section"
+                    tabIndex={0}
+                >
+                    About
+                </button>
             </Link>
             
             <Link href={'#experience'}>
-                <button className='heroButton'>Experience</button>
+                <button 
+                    className='heroButton focus:outline-none focus:ring-2 focus:ring-[#F7AB0A] focus:rounded-lg' 
+                    aria-label="Navigate to Experience section"
+                    tabIndex={0}
+                >
+                    Experience
+                </button>
             </Link>
 
             <Link href={'#skills'}>
-                <button className='heroButton'>Skills</button>
+                <button 
+                    className='heroButton focus:outline-none focus:ring-2 focus:ring-[#F7AB0A] focus:rounded-lg' 
+                    aria-label="Navigate to Skills section"
+                    tabIndex={0}
+                >
+                    Skills
+                </button>
             </Link>
             
             <Link href={'#projects'}>
-                <button className='heroButton'>Projects</button>
+                <button 
+                    className='heroButton focus:outline-none focus:ring-2 focus:ring-[#F7AB0A] focus:rounded-lg' 
+                    aria-label="Navigate to Projects section"
+                    tabIndex={0}
+                >
+                    Projects
+                </button>
             </Link>
         </div>
     </div>

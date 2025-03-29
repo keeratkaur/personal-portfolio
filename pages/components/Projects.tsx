@@ -7,8 +7,11 @@ type Props = {
     projects: Project[];
 }
 
+const PROJECTS_PER_PAGE = 3;
+
 function Projects({ projects }: Props) {
     const [searchQuery, setSearchQuery] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
     
     if (!projects) {
         return (
@@ -29,6 +32,26 @@ function Projects({ projects }: Props) {
             ))
         );
     });
+
+    // Calculate pagination
+    const totalPages = Math.ceil(filteredProjects.length / PROJECTS_PER_PAGE);
+    const startIndex = (currentPage - 1) * PROJECTS_PER_PAGE;
+    const paginatedProjects = filteredProjects.slice(startIndex, startIndex + PROJECTS_PER_PAGE);
+
+    // Debug logging
+    console.log('Pagination Debug:', {
+        currentPage,
+        totalPages,
+        startIndex,
+        projectsPerPage: PROJECTS_PER_PAGE,
+        totalProjects: filteredProjects.length,
+        paginatedProjectsCount: paginatedProjects.length
+    });
+
+    // Reset to first page when search query changes
+    React.useEffect(() => {
+        setCurrentPage(1);
+    }, [searchQuery]);
 
     return (
         <motion.div
@@ -53,12 +76,12 @@ function Projects({ projects }: Props) {
             </div>
 
             <div className='relative z-10 w-full flex space-x-8 overflow-x-auto p-10 snap-x snap-mandatory mt-32 h-[450px] scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80'>
-                {filteredProjects.length === 0 ? (
+                {paginatedProjects.length === 0 ? (
                     <div className="flex items-center justify-center w-full">
                         <p className="text-xl text-theme">No projects found matching your search.</p>
                     </div>
                 ) : (
-                    filteredProjects.map((project, i) => (
+                    paginatedProjects.map((project, i) => (
                         <article key={project._id} className='flex flex-col rounded-lg items-center space-y-5 flex-shrink-0 w-[300px] md:w-[400px] xl:w-[600px] snap-center bg-white/10 dark:bg-[#1a1a1a]/60 p-6 hover:opacity-100 opacity-40 cursor-pointer transition-opacity duration-200 h-[400px]'>
                             {project.image && project.image.asset && (
                                 <motion.img
@@ -78,7 +101,7 @@ function Projects({ projects }: Props) {
                             <div className='space-y-4 px-0 md:px-8 flex-1 overflow-y-auto scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80'>
                                 <h4 className='text-2xl md:text-3xl font-semibold text-center text-theme'>
                                     <span className='underline decoration-[#F7AB0A]/50'>
-                                        Case Study {i + 1} of {filteredProjects.length}:
+                                        Case Study {startIndex + i + 1} of {filteredProjects.length}:
                                     </span>{" "}
                                     {project.title}
                                 </h4>
@@ -106,6 +129,29 @@ function Projects({ projects }: Props) {
                     ))
                 )}
             </div>
+
+            {/* Pagination Controls */}
+            {filteredProjects.length > 0 && (
+                <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex items-center space-x-4">
+                    <button
+                        onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                        disabled={currentPage === 1}
+                        className="px-4 py-2 rounded-lg bg-white/10 dark:bg-[#1a1a1a]/60 text-theme border border-gray-500/20 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-white/20 dark:hover:bg-[#1a1a1a]/80 transition-colors"
+                    >
+                        Previous
+                    </button>
+                    <span className="text-theme">
+                        Page {currentPage} of {totalPages}
+                    </span>
+                    <button
+                        onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                        disabled={currentPage === totalPages}
+                        className="px-4 py-2 rounded-lg bg-white/10 dark:bg-[#1a1a1a]/60 text-theme border border-gray-500/20 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-white/20 dark:hover:bg-[#1a1a1a]/80 transition-colors"
+                    >
+                        Next
+                    </button>
+                </div>
+            )}
 
             <div className='w-full absolute top-[30%] bg-[#F7AB0A]/10 left-0 h-[500px] -skew-y-12' />
         </motion.div>
