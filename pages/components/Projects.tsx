@@ -24,6 +24,10 @@ function Projects({ projects }: Props) {
     // Filter projects based on search query
     const filteredProjects = projects.filter(project => {
         const searchLower = searchQuery.toLowerCase();
+
+        if (!projects) {
+            return <div>About data is not available.</div>;
+          }
         return (
             project.title.toLowerCase().includes(searchLower) ||
             project.summary.toLowerCase().includes(searchLower) ||

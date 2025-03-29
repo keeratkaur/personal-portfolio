@@ -14,7 +14,9 @@ function Experience({ experiences }: Props) {
     const dateB = b.isCurrentlyWorkingHere ? new Date() : new Date(b.dateEnded);
     return dateB.getTime() - dateA.getTime();
   });
-
+  if (!experiences) {
+    return <div>About data is not available.</div>;
+  }
   return (
     <motion.div
       initial={{ opacity: 0 }}

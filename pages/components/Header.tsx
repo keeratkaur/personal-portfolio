@@ -19,6 +19,9 @@ function Header({ socials }: Props) {
 
   // Prevent rendering until mounted to avoid hydration error
   if (!mounted) return null;
+  if (!socials) {
+    return <div>About data is not available.</div>;
+  }
 
   return (
     <header className='sticky top-0 p-5 flex items-start justify-between max-w-7xl mx-auto z-20 xl:items-center'>

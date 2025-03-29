@@ -8,6 +8,9 @@ type Props = {
 }
 
 function About({ pageInfo }: Props) {
+  if (!pageInfo) {
+    return <div>About data is not available.</div>;
+  }
   return (
     <motion.div 
       initial={{ opacity: 0 }}

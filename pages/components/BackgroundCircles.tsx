@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 type Props = object
 
 function BackgroundCircles({}: Props) {
+  
   return (
     <motion.div 
     initial={{

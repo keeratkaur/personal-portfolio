@@ -6,6 +6,9 @@ import React from 'react'
 type Props = {experience:Experience}
 
 function ExperienceCard({experience}: Props) {
+  if (!experience) {
+    return <div>About data is not available.</div>;
+  }
   return (
     <article className='flex flex-col rounded-xl items-center flex-shrink-0 w-[280px] md:w-[320px] xl:w-[380px] 
                         snap-center bg-white/5 dark:bg-[#1a1a1a]/60 p-4 md:p-6 cursor-pointer 

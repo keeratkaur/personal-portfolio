@@ -18,6 +18,10 @@ function Skill({ directionLeft, skill }: Props) {
     return null;
   }
 
+  if (!skill) {
+    return <div>About data is not available.</div>;
+  }
+
   return (
     <div className='relative w-24 h-24 xl:w-32 xl:h-32 group perspective-1000'>
       <motion.div 
