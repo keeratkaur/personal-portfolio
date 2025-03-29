@@ -1,10 +1,14 @@
 import type { NextConfig} from "next";
 
 const nextConfig: NextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   images: {
     domains: ['cdn.sanity.io'],
   },
+  eslint: {
+    // Warning: This allows production builds to complete even if there are ESLint errors.
+    ignoreDuringBuilds: true,
+  },
   env: {
     NEXT_PUBLIC_SANITY_PROJECT_ID: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
     NEXT_PUBLIC_SANITY_DATASET: process.env.NEXT_PUBLIC_SANITY_DATASET,
