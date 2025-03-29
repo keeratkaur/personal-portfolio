@@ -8,33 +8,38 @@ const BackToTop = () => {
     
     useEffect(() => {
         const toggleVisibility = () => {
-            if (window.pageYOffset > 300) {
+            const scrollContainer = document.querySelector('.overflow-y-scroll');
+            if (scrollContainer && scrollContainer.scrollTop > 300) {
                 setIsVisible(true);
             } else {
                 setIsVisible(false);
             }
         };
 
-        window.addEventListener('scroll', toggleVisibility);
-        return () => window.removeEventListener('scroll', toggleVisibility);
+        const scrollContainer = document.querySelector('.overflow-y-scroll');
+        if (scrollContainer) {
+            scrollContainer.addEventListener('scroll', toggleVisibility);
+            return () => scrollContainer.removeEventListener('scroll', toggleVisibility);
+        }
     }, []);
     
     const handleClick = () => {
-        const heroSection = document.getElementById('hero');
-        if (!heroSection) return;
+        const scrollContainer = document.querySelector('.overflow-y-scroll');
+        if (!scrollContainer) return;
 
-        // Get the hero section's position relative to the viewport
-        const heroRect = heroSection.getBoundingClientRect();
-        
-        // If hero section is fully visible at the top
-        if (heroRect.top >= 0 && heroRect.top <= 100) {
-            setShowTooltip(true);
-            setTimeout(() => setShowTooltip(false), 2000);
-            return;
-        }
-        
-        // If not at hero section, scroll to it
-        heroSection.scrollIntoView({ behavior: 'smooth' });
+        // Temporarily remove snap scrolling
+        scrollContainer.classList.remove('snap-y', 'snap-mandatory');
+
+        // Scroll to top
+        scrollContainer.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+
+        // Restore snap scrolling after animation
+        setTimeout(() => {
+            scrollContainer.classList.add('snap-y', 'snap-mandatory');
+        }, 1000);
     };
 
     const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -44,10 +49,8 @@ const BackToTop = () => {
         }
     };
 
-    if (!isVisible) return null;
-
     return (
-        <div className="fixed bottom-3 right-3 sm:bottom-5 sm:right-5" style={{ zIndex: 99999 }}>
+        <div className="fixed bottom-3 right-3 sm:bottom-5 sm:right-5" style={{ zIndex: 9999 }}>
             <button
                 onClick={handleClick}
                 onKeyPress={handleKeyPress}
@@ -56,6 +59,7 @@ const BackToTop = () => {
                 aria-expanded={showTooltip}
                 aria-controls="tooltip"
                 tabIndex={0}
+                style={{ opacity: isVisible ? 1 : 0, visibility: isVisible ? 'visible' : 'hidden' }}
             >
                 <span className="sr-only">Back to top</span>
                 ↑
