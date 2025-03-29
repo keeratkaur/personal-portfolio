@@ -77,6 +77,11 @@ const Home = ({pageInfo, experiences, skills, projects, socials}: Props) => {
   );
 };
 
+
+
+export default Home;
+
+
 export const getStaticProps: GetStaticProps<Props> = async () => {
   const pageInfo = await fetchPageInfo();
   const experiences = await fetchExperiences();
@@ -92,8 +97,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
       projects,
       socials,
     },
-    revalidate: 10, // Revalidate every 10 seconds
+    revalidate: 10, // Revalidate every 10 seconds. in the meantime the next js will show the cached data
   };
 };
 
-export default Home;

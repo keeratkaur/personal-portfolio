@@ -1,9 +1,11 @@
+import { urlFor } from '@/sanity'
+import { Experience } from '@/typings'
 import { motion } from 'framer-motion'
 import React from 'react'
 
-type Props = {}
+type Props = {experience:Experience}
 
-function ExperienceCard({}: Props) {
+function ExperienceCard({experience}: Props) {
   return (
     <article className='flex flex-col rounded-lg items-center space-y-5 flex-shrink-0 w-[500px] md:w-[550px] xl:w-[700px] max-w-full max-h-[450px] snap-center bg-[#292929] p-6 md:p-8 xl:p-8 hover:opacity-100 opacity-60 mx-5 snap-center cursor-pointer transition-opacity duration-200 overflow-hidden'>
       <motion.img
@@ -16,25 +18,39 @@ function ExperienceCard({}: Props) {
         }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className='w-24 h-24 rounded-full xl:w-[150px] xl:h-[150px] object-cover object-center' 
-        src="https://media.licdn.com/dms/image/v2/C4E0BAQFCpiIEAQ6y-A/company-logo_200_200/company-logo_200_200/0/1667874263803?e=1738800000&v=beta&t=ZAf3je76m5SeBK8VR8jDM5hv2Ys8tYraILoCBXV3vgs" 
+        className='w-24 h-24 rounded-full xl:w-[150px] xl:h-[150px] object-contain bg-[#f3f3f3] p-2' 
+        src={experience?.companyImage ? urlFor(experience.companyImage).url() : 'https://www.svgrepo.com/show/508699/landscape-placeholder.svg'} 
         alt="Company Logo" 
       />
 
       <div className='px-4 md:px-6 xl:px-8 text-center md:text-left space-y-4'>
-        <h4 className='text-2xl md:text-3xl font-light'>Vice Lead Of Operations</h4>
-        <p className='font-bold text-lg md:text-xl mt-1'>GDG</p>
+        <h4 className='text-2xl md:text-3xl font-light'>{experience?.jobTitle}</h4>
+        <p className='font-bold text-lg md:text-xl mt-1'>{experience?.company}</p>
         
         <div className='flex space-x-2 my-2 justify-center md:justify-start'>
           {/* Tech used */}
+          {experience?.technologies?.map((technology) => (
+            technology?.image ? (
+              <img
+                key={technology._id}
+                src={urlFor(technology.image).url()}
+                alt={technology.title || 'Technology'}
+                className='h-10 w-10 rounded-full bg-[#f3f3f4] p-1 object-contain'
+              />
+            ) : null
+          ))}
         </div>
-        
-        <p className='uppercase py-3 text-gray-300'>Started work... - Ended</p>
 
-        <ul className='list-disc space-y-2 ml-5 text-sm md:text-base'>
-          <li>Coordinated tech events</li>
-          <li>Led operational strategies</li>
-          <li>Collaborated with teams</li>
+        <p className='uppercase py-3 text-gray-300'>
+          {experience?.dateStarted ? new Date(experience.dateStarted).toDateString() : ''} 
+          {' - '} 
+          {experience?.isCurrentlyWorkingHere ? "Present" : experience?.dateEnded ? new Date(experience.dateEnded).toDateString() : ''}
+        </p>
+
+        <ul className='list-disc space-y-2 ml-5 text-sm pr-5 md:text-base h-96 w-4/5 overflow-y-auto scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80'>
+          {experience?.points?.map((point, i) => (
+            <li key={i}>{point}</li>
+          ))}
         </ul>
       </div>
     </article>

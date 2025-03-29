@@ -3,6 +3,7 @@ import { groq } from "next-sanity";
 import { sanityClient } from "../../lib/sanity";
 import { PageInfo } from "../../typings";
 
+//only got first element so add 0 as an index
 const query = groq`
     *[_type == "pageInfo"][0]
 `;

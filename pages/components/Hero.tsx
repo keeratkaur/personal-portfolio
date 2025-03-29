@@ -4,6 +4,7 @@ import BackgroundCircles from './BackgroundCircles'
 import Image from 'next/image';
 import Link from 'next/link';
 import { PageInfo } from '@/typings'
+import { urlFor } from '@/sanity';
 
 
 type Props = {
@@ -13,7 +14,7 @@ type Props = {
 function Hero({ pageInfo }: Props) {
     const [text, count] = useTypewriter({
         words: [
-            "Hey Fam! You found me— Harkirat Kaur!",
+            `Hey Fam! You found me— ${pageInfo.name}`,
             "// ChaserOfNewFrontiers.jsx",
             "<ExplorerOfIdeas, <BuilderOfSolutions />"
         ],
@@ -25,7 +26,7 @@ function Hero({ pageInfo }: Props) {
         <BackgroundCircles/>
         <Image
             className='relative rounded-full h-32 w-32 mx-auto object-cover'
-            src="/images/Me1.JPG" // Path to the image
+            src={urlFor(pageInfo.heroImage).url()} // Path to the image
             alt="Keerat Kaur"
             width={200}
             height={200}
@@ -33,7 +34,7 @@ function Hero({ pageInfo }: Props) {
         />
         <div className='z-20'>
             <h2 className='text-sm uppercase text-gray-500 pb-2 tracking-[15px]'>
-                Software Engineer
+                {pageInfo.role}
                 </h2>
         </div>
 
