@@ -13,6 +13,9 @@ const config: Config = {
         primary: "#F7AB0A",
         secondary: "#242424",
       },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+      },
       keyframes: {
         wave: {
           '0%': { transform: 'rotate(0.0deg)' },
