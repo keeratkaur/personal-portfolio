@@ -12,7 +12,7 @@ type Props = {
 }
 
 function Hero({ pageInfo }: Props) {
-    if (!pageInfo) {
+    if (!pageInfo || !pageInfo.name || !pageInfo.role || !pageInfo.heroImage) {
         return <div>About data is not available.</div>;
     }
 
