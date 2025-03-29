@@ -21,6 +21,9 @@ function Hero({ pageInfo }: Props) {
         loop: true,
         delaySpeed: 900
     })
+    if (!pageInfo) {
+        return <div>About data is not available.</div>;
+      }
 
     return (
         <div className='h-screen flex flex-col items-center justify-center relative overflow-hidden'>
