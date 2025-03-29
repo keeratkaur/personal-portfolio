@@ -3,7 +3,7 @@ import { PhoneIcon, MapPinIcon, EnvelopeIcon } from '@heroicons/react/24/solid';
 import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 
-type Props = {};
+type Props = object;
 
 function ContactMe({}: Props) {
   const form = useRef<HTMLFormElement>(null);

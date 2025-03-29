@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 
 const BackToTop = () => {
-    const [showTooltip, setShowTooltip] = useState(false);
+    //const [showTooltip, setShowTooltip] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
     
     useEffect(() => {
@@ -56,14 +56,14 @@ const BackToTop = () => {
                 onKeyPress={handleKeyPress}
                 className="bg-[#F7AB0A] text-black w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shadow-2xl hover:bg-[#F7AB0A]/80 transition-all duration-300 cursor-pointer text-xl sm:text-2xl font-bold relative focus:outline-none focus:ring-2 focus:ring-[#F7AB0A]"
                 aria-label="Back to top"
-                aria-expanded={showTooltip}
+               // aria-expanded={showTooltip}
                 aria-controls="tooltip"
                 tabIndex={0}
                 style={{ opacity: isVisible ? 1 : 0, visibility: isVisible ? 'visible' : 'hidden' }}
             >
                 <span className="sr-only">Back to top</span>
                 ↑
-                {showTooltip && (
+                {/* {showTooltip && (
                     <div 
                         id="tooltip"
                         className="absolute bottom-full right-0 mb-3 bg-black/90 text-white text-xs sm:text-sm py-1.5 sm:py-2 px-3 sm:px-4 rounded-lg shadow-xl backdrop-blur-sm border border-white/10 font-medium flex items-center gap-2 whitespace-nowrap"
@@ -72,7 +72,7 @@ const BackToTop = () => {
                         Already at the top!
                         <span className="animate-wave inline-block" aria-hidden="true">👋</span>
                     </div>
-                )}
+                )} */}
             </button>
         </div>
     );

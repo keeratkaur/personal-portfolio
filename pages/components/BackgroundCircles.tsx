@@ -1,7 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 
-type Props = {}
+type Props = object
 
 function BackgroundCircles({}: Props) {
   return (
