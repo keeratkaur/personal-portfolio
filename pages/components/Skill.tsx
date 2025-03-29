@@ -11,16 +11,9 @@ type Props = {
 }
 
 function Skill({ directionLeft, skill }: Props) {
-  console.log('Rendering skill:', skill.title, 'with progress:', skill.progress);
-  
-  if (!skill || !skill.image) {
-    console.log('Missing skill data:', skill);
+  if (!skill || !skill.image || !skill.title) {
     return null;
   }
-
-  if (!skill) {
-    return <div>About data is not available.</div>;
-  }
 
   return (
     <div className='relative w-24 h-24 xl:w-32 xl:h-32 group perspective-1000'>
@@ -45,7 +38,7 @@ function Skill({ directionLeft, skill }: Props) {
       >
         <img
           src={urlFor(skill.image).url()}
-          alt={`${skill.title || 'Skill'} icon`}
+          alt={`${skill.title} icon`}
           className='object-contain filter group-hover:scale-110 
                      transition-all duration-300 ease-in-out w-full h-full
                      drop-shadow-lg'
