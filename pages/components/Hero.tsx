@@ -12,6 +12,10 @@ type Props = {
 }
 
 function Hero({ pageInfo }: Props) {
+    if (!pageInfo) {
+        return <div>About data is not available.</div>;
+    }
+
     const [text, count] = useTypewriter({
         words: [
             `Hey Fam! You found me— ${pageInfo.name}`,
@@ -21,9 +25,6 @@ function Hero({ pageInfo }: Props) {
         loop: true,
         delaySpeed: 900
     })
-    if (!pageInfo) {
-        return <div>About data is not available.</div>;
-      }
 
     return (
         <div className='h-screen flex flex-col items-center justify-center relative overflow-hidden'>

@@ -8,15 +8,17 @@ type Props = {
 }
 
 function Experience({ experiences }: Props) {
+  if (!experiences) {
+    return <div>Experience data is not available.</div>;
+  }
+
   // Sort experiences by date (most recent first)
   const sortedExperiences = [...experiences].sort((a, b) => {
     const dateA = a.isCurrentlyWorkingHere ? new Date() : new Date(a.dateEnded);
     const dateB = b.isCurrentlyWorkingHere ? new Date() : new Date(b.dateEnded);
     return dateB.getTime() - dateA.getTime();
   });
-  if (!experiences) {
-    return <div>About data is not available.</div>;
-  }
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
