@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-import { ThemeProvider } from "./context/ThemeContext";
+import { ThemeProvider } from "../context/ThemeContext";
 import { useEffect } from 'react';
 import { init } from '@emailjs/browser';
 
