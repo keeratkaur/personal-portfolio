@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { PhoneIcon, MapPinIcon, EnvelopeIcon } from '@heroicons/react/24/solid';
 import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
@@ -7,27 +7,53 @@ type Props = {};
 
 function ContactMe({}: Props) {
   const form = useRef<HTMLFormElement>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: 'success' | 'error' | null;
+    message: string;
+  }>({ type: null, message: '' });
 
-  const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
+  const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!form.current) return;
 
-    emailjs
-      .sendForm(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
+    // Check if environment variables are set
+    if (!process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID ||
+        !process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID ||
+        !process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Email service is not properly configured. Please contact the administrator.'
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: '' });
+
+    try {
+      const result = await emailjs.sendForm(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
         form.current,
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || ''
-      )
-      .then(
-        (result) => {
-          console.log('Email sent successfully:', result.text);
-          if (form.current) form.current.reset();
-        },
-        (error) => {
-          console.error('Failed to send email:', error.text);
-        }
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
       );
+
+      if (result.text === 'OK') {
+        setSubmitStatus({
+          type: 'success',
+          message: 'Message sent successfully! I will get back to you soon.'
+        });
+        form.current.reset();
+      }
+    } catch (error: any) {
+      setSubmitStatus({
+        type: 'error',
+        message: error.text || 'Failed to send message. Please try again later.'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -41,7 +67,7 @@ function ContactMe({}: Props) {
         Contact Me!
       </h3>
 
-      <div className="flex flex-col space-y-6 px-4 w-full max-w-xl mt-24">
+      <div className="flex flex-col space-y-6 px-4 w-full max-w-md">
         <h4 className="text-2xl font-semibold text-center">
           Wanna know more?{" "}
           <span className="underline decoration-[#F7AB0A]/50">Ping Me.</span>
@@ -76,6 +102,7 @@ function ContactMe({}: Props) {
               type="text"
               name="user_name"
               required
+              disabled={isSubmitting}
             />
             <input
               placeholder="Email"
@@ -83,6 +110,7 @@ function ContactMe({}: Props) {
               type="email"
               name="user_email"
               required
+              disabled={isSubmitting}
             />
           </div>
 
@@ -92,6 +120,7 @@ function ContactMe({}: Props) {
             type="text"
             name="subject"
             required
+            disabled={isSubmitting}
           />
 
           <textarea
@@ -99,13 +128,30 @@ function ContactMe({}: Props) {
             className="contactInput h-32"
             name="message"
             required
+            disabled={isSubmitting}
           />
+
+          {submitStatus.type && (
+            <div
+              className={`p-3 rounded-md text-sm ${
+                submitStatus.type === 'success'
+                  ? 'bg-green-500/10 text-green-500'
+                  : 'bg-red-500/10 text-red-500'
+              }`}
+            >
+              {submitStatus.message}
+            </div>
+          )}
 
           <button
             type="submit"
-            className="bg-[#F7AB0A] py-3 px-6 rounded-md text-black font-bold text-sm hover:bg-[#F7AB0A]/80 transition-colors duration-200"
+            disabled={isSubmitting}
+            className={`bg-[#F7AB0A] py-3 px-6 rounded-md text-black font-bold text-sm 
+              hover:bg-[#F7AB0A]/80 transition-colors duration-200
+              disabled:opacity-50 disabled:cursor-not-allowed
+              relative ${isSubmitting ? 'cursor-wait' : ''}`}
           >
-            Send Message
+            {isSubmitting ? 'Sending...' : 'Send Message'}
           </button>
         </form>
       </div>
