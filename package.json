@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@heroicons/react": "^2.2.0",
     "@sanity/client": "^6.28.3",
     "@sanity/image-url": "^1.1.0",
+<<<<<<< HEAD
     "@sanity/vision": "^3.23.4",
     "framer-motion": "^11.18.2",
     "next": "14.1.0",
@@ -19,6 +21,17 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.49.3",
+=======
+    "@sanity/vision": "^3.30.0",
+    "@types/nodemailer": "^6.4.17",
+    "framer-motion": "^11.18.2",
+    "next": "15.0.2",
+    "next-sanity": "^9.9.6",
+    "nodemailer": "^6.10.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-hook-form": "^7.53.2",
+>>>>>>> 802f05f5b4bb458046e48b9047509b8519c127cc
     "react-simple-typewriter": "^5.0.1",
     "react-social-icons": "^6.22.0",
     "sanity": "^3.23.4",
@@ -31,10 +44,19 @@
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.17",
     "eslint": "^8",
+<<<<<<< HEAD
     "eslint-config-next": "14.1.0",
     "postcss": "^8.4.33",
     "tailwind-scrollbar": "^3.0.5",
     "tailwindcss": "^3.4.1",
     "typescript": "5.8.2"
+=======
+    "eslint-config-next": "^15.0.2",
+    "postcss": "^8.4.47",
+    "tailwind-scrollbar": "^3.1.0",
+    "tailwindcss": "^3.4.14",
+    "tailwindcss-dark-mode": "^1.1.7",
+    "typescript": "^5.8.2"
+>>>>>>> 802f05f5b4bb458046e48b9047509b8519c127cc
   }
 }

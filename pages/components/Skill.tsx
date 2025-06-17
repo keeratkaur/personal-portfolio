@@ -1,38 +1,63 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { urlFor } from '@/sanity';
+import type { Skill } from '@/typings';
 
 type Props = {
     directionLeft?: boolean;
+    skill: Skill;
     // src: string;  // Add a prop for the image source
     // alt: string;  // Add a prop for the image alt text
 }
 
-function Skill({ directionLeft }: Props) {
+function Skill({ directionLeft, skill }: Props) {
+  if (!skill || !skill.image || !skill.title) {
+    return null;
+  }
+
   return (
-    <div className='group relative flex cursor-pointer'>
-      <motion.img
-        
-        className="rounded-full border border-gray-500 object-cover w-24 h-24 xl:w-32 xl:h-32 filter group-hover:grayscale transition duration-300 ease-in-out"
-        initial={{
-          x: directionLeft ? -200 : 200,
-          opacity: 0
+    <div className='relative w-24 h-24 xl:w-32 xl:h-32 group perspective-1000'>
+      <motion.div 
+        initial={{ 
+          opacity: 0,
+          x: directionLeft ? -100 : 100,
         }}
-        transition={{
-          duration: 1
-        }}
-        whileInView={{
+        whileInView={{ 
           opacity: 1,
-          x: 0
+          x: 0,
         }}
-        src='https://thumbs.dreamstime.com/b/java-set-computer-software-specifications-developed-james-gosling-sun-microsystems-which-was-later-acquired-204759337.jpg'
+        transition={{ 
+          duration: 1,
+          ease: "easeOut"
+        }}
+        className='relative w-full h-full bg-gradient-to-br from-[#2a2a2a] to-[#1a1a1a]/80 
+                   rounded-xl p-4 flex items-center justify-center cursor-pointer 
+                   group-hover:bg-[#2a2a2a] transform transition-all duration-500 
+                   shadow-lg hover:shadow-2xl border border-[#333333]/20
+                   backdrop-blur-sm'
+      >
+        <img
+          src={urlFor(skill.image).url()}
+          alt={`${skill.title} icon`}
+          className='object-contain filter group-hover:scale-110 
+                     transition-all duration-300 ease-in-out w-full h-full
+                     drop-shadow-lg'
+        />
         
-      />
-        <div className='absolute opacity-0 group-hover:opacity-80 transition duration-300 ease-in-out group-hover:bg-white w-24 h-24 xl:w-32 xl:h-32 rounded-full z-0'>
-        <div className='flex items-center justify-center h-full'>
-        <p className='text-3xl font-bold text-black opacity-100'>100%</p>
-      </div>
-      </div>
-      
+        <div className='absolute inset-0 flex items-center justify-center opacity-0 
+                        group-hover:opacity-100 transition-all duration-500 
+                        bg-gradient-to-br from-[#1a1a1a]/95 to-[#2a2a2a]/95 
+                        rounded-xl backdrop-blur-sm transform group-hover:scale-105'>
+          <div className='text-center'>
+            <p className='text-2xl font-bold text-transparent bg-clip-text 
+                         bg-gradient-to-r from-yellow-200 to-yellow-500 
+                         mb-2'>{skill.title}</p>
+            <p className='text-3xl font-extrabold text-white'>
+              {typeof skill.progress === 'number' ? `${skill.progress}%` : 'N/A'}
+            </p>
+          </div>
+        </div>
+      </motion.div>
     </div>
   )
 }

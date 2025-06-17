@@ -6,6 +6,7 @@ import { Skill } from "../../typings";
 const query = groq`
     *[_type == "skill"] {
         _id,
+        _type,
         title,
         progress,
         image
@@ -20,7 +21,12 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<Data>
 ) {
-    const skills: Skill[] = await sanityClient.fetch(query);
-    console.log('Skills from API:', skills);
-    res.status(200).json({ skills });
+    try {
+        const skills: Skill[] = await sanityClient.fetch(query);
+        console.log('Skills from API:', skills);
+        res.status(200).json({ skills });
+    } catch (error) {
+        console.error('Error fetching skills:', error);
+        res.status(500).json({ skills: [] });
+    }
 }

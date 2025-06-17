@@ -1,41 +1,91 @@
+import { urlFor } from '@/sanity'
+import { Experience } from '@/typings'
 import { motion } from 'framer-motion'
 import React from 'react'
 
-type Props = {}
+type Props = {experience:Experience}
 
-function ExperienceCard({}: Props) {
+function ExperienceCard({experience}: Props) {
+  if (!experience) {
+    return <div>About data is not available.</div>;
+  }
   return (
-    <article className='flex flex-col rounded-lg items-center space-y-5 flex-shrink-0 w-[500px] md:w-[550px] xl:w-[700px] max-w-full max-h-[450px] snap-center bg-[#292929] p-6 md:p-8 xl:p-8 hover:opacity-100 opacity-60 mx-5 snap-center cursor-pointer transition-opacity duration-200 overflow-hidden'>
-      <motion.img
-        initial={{
-          y: -100,
-          opacity: 0
-        }}
-        transition={{
-          duration: 1.2
-        }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className='w-24 h-24 rounded-full xl:w-[150px] xl:h-[150px] object-cover object-center' 
-        src="https://media.licdn.com/dms/image/v2/C4E0BAQFCpiIEAQ6y-A/company-logo_200_200/company-logo_200_200/0/1667874263803?e=1738800000&v=beta&t=ZAf3je76m5SeBK8VR8jDM5hv2Ys8tYraILoCBXV3vgs" 
-        alt="Company Logo" 
-      />
+    <article className='flex flex-col rounded-xl items-center flex-shrink-0 w-[280px] md:w-[320px] xl:w-[380px] 
+                        snap-center bg-white/5 dark:bg-[#1a1a1a]/60 p-4 md:p-6 cursor-pointer 
+                        backdrop-blur-sm border border-white/10 shadow-lg
+                        hover:bg-white/10 dark:hover:bg-[#1a1a1a]/80 
+                        transition-all duration-300 ease-out group'>
+      <div className='relative w-24 h-24 md:w-28 md:h-28 mb-4'>
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.5 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className='absolute inset-0 bg-[#F7AB0A]/20 rounded-lg transform -rotate-6 scale-105 group-hover:rotate-0 transition-transform duration-300'
+        />
+        <motion.img
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className='relative w-full h-full object-contain p-3 rounded-lg bg-white/5 dark:bg-[#292929]/80 
+                     backdrop-blur-sm border border-white/10 shadow-md
+                     group-hover:scale-105 transition-transform duration-300' 
+          src={experience?.companyImage ? urlFor(experience.companyImage).url() : 'https://www.svgrepo.com/show/508699/landscape-placeholder.svg'} 
+          alt={`${experience?.company} logo`}
+        />
+      </div>
 
-      <div className='px-4 md:px-6 xl:px-8 text-center md:text-left space-y-4'>
-        <h4 className='text-2xl md:text-3xl font-light'>Vice Lead Of Operations</h4>
-        <p className='font-bold text-lg md:text-xl mt-1'>GDG</p>
-        
-        <div className='flex space-x-2 my-2 justify-center md:justify-start'>
-          {/* Tech used */}
+      <div className='space-y-3 w-full'>
+        <div className='text-center'>
+          <h4 className='text-xl md:text-2xl font-bold bg-gradient-to-r from-[#F7AB0A] to-[#F7CD1E] 
+                         text-transparent bg-clip-text transform group-hover:scale-105 transition-transform duration-300'>
+            {experience?.jobTitle}
+          </h4>
+          <p className='text-lg font-medium text-gray-300 mt-1'>{experience?.company}</p>
         </div>
-        
-        <p className='uppercase py-3 text-gray-300'>Started work... - Ended</p>
 
-        <ul className='list-disc space-y-2 ml-5 text-sm md:text-base'>
-          <li>Coordinated tech events</li>
-          <li>Led operational strategies</li>
-          <li>Collaborated with teams</li>
-        </ul>
+        <div className='flex flex-wrap gap-1.5 justify-center'>
+          {experience?.technologies?.map((technology) => (
+            technology?.image ? (
+              <motion.img
+                initial={{ opacity: 0, scale: 0.5 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                key={technology._id}
+                src={urlFor(technology.image).url()}
+                alt={technology.title || 'Technology'}
+                className='h-6 w-6 rounded-md bg-white/10 dark:bg-[#292929]/80 p-1
+                         backdrop-blur-sm border border-white/10 shadow-md
+                         hover:scale-125 transition-transform duration-300'
+              />
+            ) : null
+          ))}
+        </div>
+
+        <p className='text-xs text-center font-medium text-gray-400 tracking-wider'>
+          {experience?.dateStarted ? new Date(experience.dateStarted).toLocaleDateString('en-US', { 
+            month: 'short',
+            year: 'numeric'
+          }) : ''} 
+          {' — '} 
+          {experience?.isCurrentlyWorkingHere ? "Present" : experience?.dateEnded ? new Date(experience.dateEnded).toLocaleDateString('en-US', {
+            month: 'short',
+            year: 'numeric'
+          }) : ''}
+        </p>
+
+        <div className='relative w-full overflow-hidden rounded-lg bg-white/5 dark:bg-[#292929]/30 
+                        backdrop-blur-sm border border-white/10 shadow-md p-3'>
+          <ul className='space-y-1.5 text-xs md:text-sm text-gray-300 max-h-[150px] overflow-y-auto 
+                        scrollbar-thin scrollbar-track-white/5 scrollbar-thumb-[#F7AB0A]/50
+                        pr-2'>
+            {experience?.points?.map((point, i) => (
+              <li key={i} className='list-disc ml-3 hover:text-white transition-colors duration-200'>
+                {point}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </article>
   )
